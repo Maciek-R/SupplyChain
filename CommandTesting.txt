@@ -1,0 +1,72 @@
+// Deploying on private Test blockchain
+truffle deploy --network development --reset
+
+truffle console
+
+
+Accounts:
+
+0xEea01CAc2C7861d3C656B5f30934CA353C6f8604
+0x0C8A91d372eb22f30AC6533fDFc6766BE2291906
+0x830d8B4E250A9ECA103993d681DF997266d50D52
+0x58AF7b0aF0F10C711F9eF8e26d278E06b28aA17b
+0x3f7a796f864A0a6062039d551083B1CE646E5eBC
+
+===========================================================
+SupplyChain.deployed()
+
+//Creating participants
+SupplyChain.deployed().then(function(instance) {return instance.addParticipant("A", "passA", "Manufacturer", "0xEea01CAc2C7861d3C656B5f30934CA353C6f8604")})
+SupplyChain.deployed().then(function(instance) {return instance.addParticipant("B", "passB", "Manufacturer", "0x0C8A91d372eb22f30AC6533fDFc6766BE2291906")})
+
+SupplyChain.deployed().then(function(instance) {return instance.addParticipant("C", "passC", "Supplier", "0x830d8B4E250A9ECA103993d681DF997266d50D52")})
+SupplyChain.deployed().then(function(instance) {return instance.addParticipant("D", "passD", "Supplier", "0x58AF7b0aF0F10C711F9eF8e26d278E06b28aA17b")})
+
+SupplyChain.deployed().then(function(instance) {return instance.addParticipant("E", "passE", "Consumer", "0x3f7a796f864A0a6062039d551083B1CE646E5eBC")})
+
+
+
+SupplyChain.deployed().then(function(instance) {return instance.getParticipant(0)})
+SupplyChain.deployed().then(function(instance) {return instance.getParticipant(1)})
+SupplyChain.deployed().then(function(instance) {return instance.getParticipant(2)})
+SupplyChain.deployed().then(function(instance) {return instance.getParticipant(3)})
+SupplyChain.deployed().then(function(instance) {return instance.getParticipant(4)})
+
+
+//Creating products
+SupplyChain.deployed().then(function(instance) {return instance.addProduct(0, "ABC", "100", "123", 11)})
+SupplyChain.deployed().then(function(instance) {return instance.addProduct(0, "DEF", "101", "124", 12)})
+SupplyChain.deployed().then(function(instance) {return instance.addProduct(1, "GHI", "200", "222", 13, {"from": "0x0C8A91d372eb22f30AC6533fDFc6766BE2291906"})})
+SupplyChain.deployed().then(function(instance) {return instance.addProduct(1, "JKL", "201", "223", 14, {"from": "0x0C8A91d372eb22f30AC6533fDFc6766BE2291906"})})
+
+//these return error - revert, because owner is not Manufacturer
+SupplyChain.deployed().then(function(instance) {return instance.addProduct(2, "MNO", "300", "333", 15, {"from": "0x830d8B4E250A9ECA103993d681DF997266d50D52"})})
+SupplyChain.deployed().then(function(instance) {return instance.addProduct(2, "PQR", "301", "334", 16, {"from": "0x830d8B4E250A9ECA103993d681DF997266d50D52"})})
+
+SupplyChain.deployed().then(function(instance) {return instance.getProduct(0)})
+SupplyChain.deployed().then(function(instance) {return instance.getProduct(1)})
+SupplyChain.deployed().then(function(instance) {return instance.getProduct(2)})
+SupplyChain.deployed().then(function(instance) {return instance.getProduct(3)})
+
+//Changing Ownership
+SupplyChain.deployed().then(function(instance) {return instance.newOwner(0, 2, 0, {"from": "0xEea01CAc2C7861d3C656B5f30934CA353C6f8604"})})
+SupplyChain.deployed().then(function(instance) {return instance.newOwner(2, 1, 0, {"from": "0x830d8B4E250A9ECA103993d681DF997266d50D52"})})
+SupplyChain.deployed().then(function(instance) {return instance.newOwner(1, 2, 0, {"from": "0x0C8A91d372eb22f30AC6533fDFc6766BE2291906"})})
+SupplyChain.deployed().then(function(instance) {return instance.newOwner(2, 1, 0, {"from": "0x830d8B4E250A9ECA103993d681DF997266d50D52"})})
+
+SupplyChain.deployed().then(function(instance) {return instance.newOwner(0, 1, 1, {"from": "0xEea01CAc2C7861d3C656B5f30934CA353C6f8604"})})
+SupplyChain.deployed().then(function(instance) {return instance.newOwner(1, 2, 1, {"from": "0x0C8A91d372eb22f30AC6533fDFc6766BE2291906"})})
+
+
+SupplyChain.deployed().then(function(instance) {return instance.getProvenance(0)});
+SupplyChain.deployed().then(function(instance) {return instance.getProvenance(1)});
+
+
+
+
+
+
+
+
+
+
